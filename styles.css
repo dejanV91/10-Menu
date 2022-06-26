@@ -97,7 +97,6 @@ body{
 .item{
     display: flex;
     flex-direction: row;
-    min-width: 550px;
     width: 550px;
 }
 
@@ -154,4 +153,36 @@ body{
     font-size: 1.1rem;
     letter-spacing: 0.7px;
     margin: 0;
+}
+
+@media (min-width:1900px) {
+    .itemsSection{
+        max-width: 1650px;
+    }
+}
+
+@media (min-width:1225px) {
+    .itemsSection{
+        margin:0;
+    }
+}
+
+@media (max-width: 650px) {
+   .item{
+    max-width: 350px;
+    flex-direction: column;
+    text-align: left;
+   }
+   .image{
+    min-width: 350px;
+    min-height: 200px;
+   }
+   .imageSection{
+    margin-bottom:15px;
+   }
+   .contentSection{
+    margin:0;
+   }
+
+    
 }
