@@ -80,4 +80,68 @@ const menu = [
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
   ];
-  
+
+const itemsSection=document.querySelector(".itemsSection");
+
+const containerBtns=document.querySelector(".buttonsContainer");
+
+window.addEventListener("DOMContentLoaded", function(){
+  displayItems(menu);
+  displayMenuButtons();
+});
+
+// load items
+function displayItems(menu){
+  const itemsAll= menu.map(function(item){
+    return `<article class="item">
+    <div class="imageSection">
+        <img src=${item.img} alt=${item.title} class="image">
+    </div>
+    <div class="contentSection">
+        <header class="titleAndPrice">
+            <h4>${item.title}</h4>
+            <p class="price">${item.price}</p>
+        </header>
+        <div class="itemText">
+            <p class="item-text">
+                ${item.desc}
+            </p>
+        </div>
+    </div>
+    </article>`
+  }).join(" ");
+  itemsSection.innerHTML=itemsAll;
+}
+
+//display all buttons and filter
+function displayMenuButtons(){
+  const noBtns=menu.reduce(function(value, item){
+    if (!value.includes(item.category)) {
+      value.push(item.category)
+    }
+    return value
+  },["all"])
+ 
+  const categoryBtns=noBtns.map(function(category){
+    return `<button class="btn" data-id=${category}>${category}</button>`
+  }).join(" ");
+
+  containerBtns.innerHTML=categoryBtns;
+
+  const allBtns=document.querySelectorAll(".btn");
+  allBtns.forEach(function(btn){
+    btn.addEventListener("click",function(e){
+      const category=e.currentTarget.dataset.id;
+      const menuFilter=menu.filter(function(item){
+        if (item.category === category) {
+          return item
+        }
+      });
+      if (category === "all") {
+        displayItems(menu);
+      }else{
+        displayItems(menuFilter);
+      }
+    });
+  });
+}
